@@ -12,10 +12,12 @@ root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 py="$PREFIX/bin/python"
 [ -x "$py" ] || { echo "python missing: pkg install python" >&2; exit 1; }
 
-run="PYTHONPATH=\"$root/src\" HOME=\"$HOME\" TERM=\"${TERM:-xterm-256color}\" \
-LD_LIBRARY_PATH=\"$PREFIX/lib\" \"$py\" -m wifit3"
+# env(1) carries the vars past sudo's environment reset; no shell quoting involved.
+set -- env \
+  "PYTHONPATH=$root/src" "HOME=$HOME" "TERM=${TERM:-xterm-256color}" \
+  "LD_LIBRARY_PATH=$PREFIX/lib" "$py" -m wifit3
 
 if [ "$(id -u)" -eq 0 ]; then
-  exec bash -c "$run"
+  exec "$@"
 fi
-exec su -c "$run"
+exec sudo "$@"
