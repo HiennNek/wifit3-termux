@@ -10,7 +10,7 @@ case "${PREFIX:-}" in
 esac
 
 pkg update -y
-pkg install -y python libusb
+pkg install -y python libusb sudo
 python -m pip install --upgrade pyusb platformdirs rich textual
 
 root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
