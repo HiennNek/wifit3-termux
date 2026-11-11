@@ -1,3 +1,10 @@
+# How to run:
+
+```bash
+bash scripts/termux-setup.sh # Im lazy to run chmod btw, so just use `bash`
+sudo bash scripts/termux-run.sh
+```
+
 # wifit3
 > A standalone USB Wi-Fi auditor for Linux, Windows, and macOS.
 
